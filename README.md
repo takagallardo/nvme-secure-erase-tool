@@ -1,6 +1,6 @@
 # nvme-secure-erase-tool
 
-Secure NVMe SSD erase automation tool with advanced safety controls and audit logging (Linux)
+Enterprise-grade NVMe Secure Erase automation tool with multi-layer safety controls and audit trail generation (Linux).
 
 > ⚠️ Designed for enterprise infrastructure environments requiring verifiable secure data destruction.
 
