@@ -2,6 +2,8 @@
 
 Secure NVMe SSD erase automation tool with advanced safety controls and audit logging (Linux)
 
+> ⚠️ Designed for enterprise infrastructure environments requiring verifiable secure data destruction.
+
 ---
 
 ## Overview
@@ -16,7 +18,7 @@ nvme format --ses=1
 ```
 
 It is designed for **enterprise-grade secure data destruction**,  
-including operational safety checks and audit trace generation.
+including operational safety checks and audit trail generation.
 
 ---
 
@@ -147,6 +149,16 @@ This allows verification of:
 - Which method was used
 
 Suitable for internal audit and asset disposal documentation.
+
+---
+
+## Script File
+
+The main executable script in this repository is:
+
+- `nvme_secure_erase.sh`
+
+This script implements all safety checks and secure erase logic described above.
 
 ---
 
