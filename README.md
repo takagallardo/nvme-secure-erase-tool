@@ -13,11 +13,11 @@ This tool automates NVMe Secure Erase operations on Linux systems.
 Unlike simple file deletion or filesystem formatting,  
 this tool executes controller-level Secure Erase using:
 
-The design prioritizes operational risk mitigation and irreversible data sanitization.
-
-```
+```bash
 nvme format --ses=1
 ```
+
+The design prioritizes operational risk mitigation and irreversible data sanitization.
 
 It is designed for **enterprise-grade secure data destruction**,  
 including operational safety checks and audit trail generation.
