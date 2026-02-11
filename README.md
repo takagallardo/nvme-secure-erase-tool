@@ -2,7 +2,7 @@
 
 Enterprise-grade NVMe Secure Erase automation tool with multi-layer safety controls and audit trail generation (Linux).
 
-> ⚠️ Designed for enterprise infrastructure environments requiring verifiable secure data destruction.
+> ⚠️ Designed for enterprise infrastructure environments requiring verifiable and irreversible data sanitization.
 
 ---
 
@@ -11,35 +11,35 @@ Enterprise-grade NVMe Secure Erase automation tool with multi-layer safety contr
 This tool automates NVMe Secure Erase operations on Linux systems.
 
 Unlike simple file deletion or filesystem formatting,  
-this tool executes controller-level Secure Erase using:
+it executes controller-level Secure Erase using:
 
 ```bash
 nvme format --ses=1
 ```
 
-The design prioritizes operational risk mitigation and irreversible data sanitization.
+The design prioritizes operational risk mitigation, irreversible data sanitization, and traceable execution records.
 
-It is designed for **enterprise-grade secure data destruction**,  
-including operational safety checks and audit trail generation.
+It is intended for enterprise environments where secure device lifecycle management and compliance verification are required.
 
 ---
 
 ## Why I Built This
 
-During infrastructure operations, I encountered situations where:
+While working in infrastructure operations, I encountered scenarios where:
 
-- SSDs were being reused without guaranteed data wipe
-- Devices containing OS images had to be securely destroyed
-- Internal audit required proof of deletion
-- Risk of accidental system disk erasure had to be eliminated
+- SSDs were reused without guaranteed data sanitization
+- OS image disks required irreversible destruction
+- Internal audits required verifiable deletion records
+- Accidental erasure of system disks had to be prevented
 
-This tool was built to solve those real-world operational risks.
+This tool was built to address those real-world operational risks.
 
 It focuses on:
 
 - Preventing catastrophic mistakes
-- Ensuring irreversible data destruction
-- Producing verifiable deletion records
+- Ensuring controller-level irreversible data destruction
+- Generating audit-ready evidence
+- Supporting secure asset lifecycle management
 
 ---
 
@@ -49,7 +49,7 @@ Below is the execution flow of the secure erase process:
 
 ![NVMe Secure Erase Flow](nvme_secure_erase_flow.png)
 
-The flow ensures:
+The workflow ensures:
 
 - System disk detection
 - Explicit human confirmation
@@ -62,16 +62,32 @@ The flow ensures:
 
 ## Core Safety Design
 
-This script includes multiple layers of protection:
+The script implements multiple layers of protection:
 
-- Automatically detects the currently running system disk
-- Immediately aborts if the system disk is selected
-- Requires explicit `YES` confirmation
-- Checks and unmounts target devices if necessary
-- Generates execution logs
-- Produces deletion certificate data (model / serial / timestamp)
+- Automatic detection of the active system disk
+- Immediate abort if the system disk is selected
+- Explicit `YES` confirmation gate
+- Mount state validation and forced unmount
+- Execution logging
+- Generation of device-identifiable erase certificates (model / serial / timestamp)
 
-These protections significantly reduce operational risk.
+These controls significantly reduce operational risk in production environments.
+
+---
+
+## Security & Confidentiality
+
+This public repository is a sanitized and generalized version of tooling developed in enterprise infrastructure environments.
+
+No proprietary information, internal architecture details, or confidential operational data are included.
+
+The implementation has been intentionally abstracted to:
+
+- Protect internal infrastructure details
+- Ensure compliance with corporate security policies
+- Avoid exposure of production topology or host information
+
+This project demonstrates secure operational design principles while maintaining strict confidentiality boundaries.
 
 ---
 
@@ -80,10 +96,10 @@ These protections significantly reduce operational risk.
 - Mounted device detection
 - System disk protection
 - NVMe device validation
-- Human confirmation gate
-- Controller-level secure erase
-- Erasure verification
-- Log generation
+- Human confirmation safeguard
+- Controller-level secure erase execution
+- Post-erase validation
+- Execution logging
 - Audit-ready output
 
 ---
@@ -102,9 +118,8 @@ Performs:
 - Destruction of encryption keys (if enabled)
 - Controller-level reset of user data areas
 
-This is **not** a filesystem format.
-
-It is a hardware-level secure erase.
+This is **not** a filesystem format.  
+It is a hardware-level secure erase operation.
 
 ---
 
@@ -113,26 +128,26 @@ It is a hardware-level secure erase.
 - All user files
 - All partitions
 - All filesystems (ext4, NTFS, etc.)
-- Installed OS (Linux / Windows)
+- Installed operating systems
 - Previously deleted residual data
 - Disk encryption keys
 
-Data recovery after this process is not possible using software tools.
+Data recovery after this process is not possible using software-based recovery tools.
 
 ---
 
 ## What Cannot Be Erased (By Design)
 
-The following SSD metadata remains (as per hardware design):
+The following SSD metadata remains, as defined by hardware controller design:
 
 - Power cycle count
 - Power-on hours
-- Total write amount
+- Total data written
 - Model name
 - Serial number
 - Firmware version
 
-These are controller-level statistics and not user data.
+These are controller-level statistics and do not contain user data.
 
 ---
 
@@ -142,15 +157,15 @@ The script generates:
 
 - Execution logs
 - Device identification records
-- Timestamped erase confirmation
+- Timestamped erase certificates
 
-This allows verification of:
+This enables verification of:
 
 - When the erase was performed
 - Which device was erased
 - Which method was used
 
-Suitable for internal audit and asset disposal documentation.
+Suitable for internal audit, compliance validation, and asset disposal documentation.
 
 ---
 
@@ -160,14 +175,14 @@ The main executable script in this repository is:
 
 - `nvme_secure_erase.sh`
 
-This script implements all safety checks and secure erase logic described above.
+It implements all safety checks and secure erase logic described above.
 
 ---
 
 ## Requirements
 
 - Linux
-- nvme-cli installed
+- `nvme-cli` installed
 - Root privileges
 
 ---
@@ -188,7 +203,7 @@ Use at your own risk.
 
 Always verify the target device before executing Secure Erase.
 
-This tool includes safety checks, but responsibility remains with the operator.
+Although this tool includes multi-layer safety checks, final responsibility remains with the operator.
 
 ---
 
